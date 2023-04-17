@@ -2,35 +2,30 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Character Combination Generator</title>
+    <title>Character Combinations</title>
   </head>
   <body>
-    <h1>Character Combination Generator</h1>
-    <p>All possible combinations of 5 characters:</p>
-    <ul id="combinations"></ul>
-
+    <h1>All Combinations of 3 Characters</h1>
+    <ul>
+    </ul>
     <script>
-      // Function to generate all combinations of 5 characters
+      // Function to generate all combinations of 3 characters
       function generateCombinations() {
-        const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}\|;:'\",.<>/? ";
+        const characters = "abcdefghijklmnopqrstuvwxyz;
         const combinations = [];
         for (let i = 0; i < characters.length; i++) {
           for (let j = 0; j < characters.length; j++) {
             for (let k = 0; k < characters.length; k++) {
-              for (let l = 0; l < characters.length; l++) {
-                for (let m = 0; m < characters.length; m++) {
-                  combinations.push(characters[i] + characters[j] + characters[k] + characters[l] + characters[m]);
-                }
-              }
+              combinations.push(characters[i] + characters[j] + characters[k]);
             }
           }
         }
         return combinations;
       }
 
-      // Generate and display all combinations of 5 characters
+      // Generate and display all combinations of 3 characters
       const combinations = generateCombinations();
-      const list = document.getElementById("combinations");
+      const list = document.querySelector("ul");
       for (let i = 0; i < combinations.length; i++) {
         const li = document.createElement("li");
         li.textContent = combinations[i];
