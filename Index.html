@@ -2,23 +2,17 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Character Combination Search</title>
+    <title>Character Combination Generator</title>
   </head>
   <body>
-    <h1>Character Combination Search</h1>
-    <p>Enter a number or character combination below to search for its corresponding text.</p>
-    <form>
-      <input type="text" id="search" name="search" placeholder="Search...">
-      <input type="submit" value="Go">
-    </form>
-    <hr>
-    <p><strong>All possible combinations of 5 characters:</strong></p>
+    <h1>Character Combination Generator</h1>
+    <p>All possible combinations of 5 characters:</p>
     <ul id="combinations"></ul>
 
     <script>
       // Function to generate all combinations of 5 characters
       function generateCombinations() {
-        const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}\\|;:'\",.<>/? ";
+        const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}\|;:'\",.<>/? ";
         const combinations = [];
         for (let i = 0; i < characters.length; i++) {
           for (let j = 0; j < characters.length; j++) {
@@ -42,33 +36,6 @@
         li.textContent = combinations[i];
         list.appendChild(li);
       }
-
-      // Map each combination to a number for search
-      const combinationMap = {};
-      for (let i = 0; i < combinations.length; i++) {
-        combinationMap[i + 1] = combinations[i];
-      }
-
-      // Function to handle form submission
-      function handleSubmit(event) {
-        event.preventDefault();
-        const searchInput = document.getElementById("search").value;
-        if (searchInput in combinationMap) {
-          alert(combinationMap[searchInput]);
-        } else {
-          const filteredCombinations = combinations.filter(combination => combination.includes(searchInput));
-          if (filteredCombinations.length === 0) {
-            alert("No results found.");
-          } else {
-            const result = filteredCombinations.join(", ");
-            alert(`Results: ${result}`);
-          }
-        }
-      }
-
-      // Add event listener to form submission
-      const form = document.querySelector("form");
-      form.addEventListener("submit", handleSubmit);
     </script>
   </body>
 </html>
