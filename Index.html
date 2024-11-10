@@ -6,29 +6,57 @@
   </head>
   <body>
     <h1>Character Combinations</h1>
-    <p>Here are all possible combinations of 2 characters:</p>
+    
+    <p>Enter custom characters for combinations:</p>
+    <input type="text" id="customCharacters" placeholder="Enter characters (e.g., abc123!@#)">
+    
+    <p>Enter the combination length:</p>
+    <input type="number" id="combinationLength" value="2" min="1">
+    
+    <button onclick="displayCombinations()">Generate Combinations</button>
+    
+    <h2>Combinations:</h2>
     <ul id="combinations"></ul>
 
     <script>
-      // Function to generate all combinations of 2 characters
-      function generateCombinations() {
-        const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}\|;:'\",.<>/? ";
+      // Function to generate all combinations of the specified length
+      function generateCombinations(characters, length) {
         const combinations = [];
-        for (let i = 0; i < characters.length; i++) {
-          for (let j = 0; j < characters.length; j++) {
-            combinations.push(characters[i] + characters[j]);
+        
+        // Recursive helper function to build combinations
+        function buildCombination(current) {
+          if (current.length === length) {
+            combinations.push(current);
+            return;
+          }
+          for (let i = 0; i < characters.length; i++) {
+            buildCombination(current + characters[i]);
           }
         }
+        
+        buildCombination(""); // Start with an empty string
         return combinations;
       }
 
-      // Generate and display all combinations of 2 characters
-      const combinations = generateCombinations();
-      const list = document.getElementById("combinations");
-      for (let i = 0; i < combinations.length; i++) {
-        const li = document.createElement("li");
-        li.textContent = combinations[i];
-        list.appendChild(li);
+      // Function to generate and display combinations based on user input
+      function displayCombinations() {
+        // Get user inputs
+        const characters = document.getElementById("customCharacters").value || "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:'\",.<>/? ";
+        const length = parseInt(document.getElementById("combinationLength").value, 10);
+        
+        // Generate combinations
+        const combinations = generateCombinations(characters, length);
+        
+        // Clear previous combinations
+        const list = document.getElementById("combinations");
+        list.innerHTML = ""; // Clear the list
+        
+        // Display new combinations
+        combinations.forEach(combination => {
+          const li = document.createElement("li");
+          li.textContent = combination;
+          list.appendChild(li);
+        });
       }
     </script>
   </body>
